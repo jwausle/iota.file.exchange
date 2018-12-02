@@ -25,7 +25,7 @@ $ open Intellij|eclipse
 
 # Details 
 
-* [Slides](./doc/slides.key)
+* [Slides](./doc/slides.pdf)
 * [Paper.web](./doc/README.md)
-* [Paper.pdf](./doc/slides.key)
+* [Paper.pdf](./doc/paper.pdf)
 * [IOTA - Contest](https://blog.iota.org/iota-contest-the-perfect-brainstorm-f32eb505306c)
