@@ -16,11 +16,11 @@ private const val DEFAULT_LINE_WIDTH = 120
 val out = PrettyPrinter(DEFAULT_LINE_WIDTH)
 
 /**
- * iota.file.exchange.OWNER upload a file to the iota.file.exchange.CDN
- * Grant read permission to iota.file.exchange.CUSTOMER
- * Send email to iota.file.exchange.CUSTOMER
- * iota.file.exchange.CUSTOMER download encrypted file and iota.file.exchange.decrypt key
- * and iota.file.exchange.decrypt the file content
+ * OWNER upload a file to the CDN
+ * Grant read permission to CUSTOMER
+ * Send email to CUSTOMER
+ * CUSTOMER download encrypted file and decrypt key
+ * and decrypt the file content
  */
 fun main(args: Array<String>) {
     val content = Collections.nCopies(1000, "a").joinToString(separator = "").toByteArray()

@@ -122,6 +122,6 @@ whishes of customer to reduce paper waste.
 
 ## Links 
 
-* [Slides](./slides.pdf)
-* [Paper](./paper.pdf)
+* [Slides](https://github.com/jwausle/iota.file.exchange/raw/master/doc/slides.pdf)
+* [Paper.pdf](https://github.com/jwausle/iota.file.exchange/raw/master/doc/paper.pdf)
 * [Code](https://github.com/jwausle/iota.file.exchange/) (Kotlin)
