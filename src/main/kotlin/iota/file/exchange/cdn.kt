@@ -26,7 +26,7 @@ class ContentDeliveryNetwork {
         TangleMock.prepareTransfer(owner.getSeed(), ownsPermission.toJson()).send()
         out.println("CDN sent owns permission to tangle")
 
-        // iota.file.exchange.store encrypted content
+        // store encrypted content
         val contentEncrypted = encrypt(content, ownsPermission.decryptKey())
         val link: URL = store(contentEncrypted)
         out.println("CDN stored encrypted file ${link}")
@@ -56,7 +56,7 @@ class ContentDeliveryNetwork {
             out.println("CDN update exchange file with token '${exchangeFile.token}' in tangle")
             return readPermission
         }
-        throw IllegalArgumentException("File $link not exist")
+        throw IllegalArgumentException("File ${link} not exist")
     }
 
     /**
@@ -68,7 +68,7 @@ class ContentDeliveryNetwork {
             out.printHeadline("CDN found file exchange for ${link}")
             return link.readBytes()
         }
-        throw IllegalArgumentException("File $link not exist")
+        throw IllegalArgumentException("File ${link} not exist")
     }
 
     /**
@@ -79,7 +79,7 @@ class ContentDeliveryNetwork {
         if (exchangeFile != null) {
             if (exchangeFile.hasReadPermission(publicKey)) {
                 val aesKey: Key = exchangeFile.getOwnerPermission().decryptKey()
-                out.println("CDN iota.file.exchange.decrypt aes key as owner")
+                out.println("CDN decrypt aes key as owner")
                 val aesKeyEncrypted = encrypt(ByteArrayInputStream(aesKey.encoded), publicKey)
                 out.println("CDN encrypted aes key for reader")
                 return aesKeyEncrypted
@@ -90,7 +90,8 @@ class ContentDeliveryNetwork {
     }
 
     private fun store(bytes: ByteArray): URL {
-        val localPath = store.resolve(sha1(bytes).toString())
+        val fileName = sha1(bytes).map { String.format("%02x", it) }.joinToString("")
+        val localPath = store.resolve(fileName)
         Files.write(localPath, bytes)
         return localPath.toUri().toURL()
     }
@@ -117,7 +118,6 @@ fun encrypt(bytes: ByteArray, publicKey: PublicKey): ByteArray {
 }
 
 fun decrypt(input: InputStream, publicKey: PublicKey): ByteArray {
-    //val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
     val cipher = Cipher.getInstance("RSA")
     cipher.init(Cipher.DECRYPT_MODE, publicKey)
 
@@ -125,7 +125,6 @@ fun decrypt(input: InputStream, publicKey: PublicKey): ByteArray {
 }
 
 fun decrypt(input: InputStream, privateKey: PrivateKey): ByteArray {
-    //val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
     val cipher = Cipher.getInstance("RSA")
     cipher.init(Cipher.DECRYPT_MODE, privateKey)
 
@@ -133,7 +132,6 @@ fun decrypt(input: InputStream, privateKey: PrivateKey): ByteArray {
 }
 
 fun encrypt(input: InputStream, aesKey: Key): ByteArray {
-    //val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
     val cipher = Cipher.getInstance("AES")
     cipher.init(Cipher.ENCRYPT_MODE, aesKey)
 
@@ -142,7 +140,6 @@ fun encrypt(input: InputStream, aesKey: Key): ByteArray {
 }
 
 fun decrypt(input: InputStream, aesKey: Key): ByteArray {
-    ///val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
     val cipher = Cipher.getInstance("AES")
     cipher.init(Cipher.DECRYPT_MODE, aesKey)
 

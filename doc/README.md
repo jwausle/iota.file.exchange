@@ -4,9 +4,9 @@
 
 What is the problem I'am trying to solve? 
 
-<img src="images/new-way.png" alt="drawing" style="width:400px;"/>
-
 I want to exchange secure documents over email+iota
+
+<img src="images/new-way.png" alt="drawing" style="width:400px;"/>
 
 * to reduce letter shipping costs for companies 
 * to reduce paper wast for the end customer (and the earth)
