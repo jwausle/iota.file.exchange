@@ -10,7 +10,7 @@ import javax.crypto.spec.SecretKeySpec
 private val CDN = ContentDeliveryNetwork()
 private val OWNER = Contract.User.Owner("jan.winter@itemis.de")
 private val CUSTOMER = Contract.User.Customer("winterjan@hotmail.com")
-private val FILE_TO_UPLOAD: Path = Files.createTempFile("upload", ".src")
+private val FILE_TO_UPLOAD: Path = Files.createTempFile("upload-", ".source")
 
 private const val DEFAULT_LINE_WIDTH = 120
 val out = PrettyPrinter(DEFAULT_LINE_WIDTH)
@@ -25,7 +25,7 @@ val out = PrettyPrinter(DEFAULT_LINE_WIDTH)
 fun main(args: Array<String>) {
     val content = Collections.nCopies(1000, "a").joinToString(separator = "").toByteArray()
     Files.write(FILE_TO_UPLOAD, content)
-    out.printHeadline("# Wrote ${content.size} bytes to ${FILE_TO_UPLOAD}")
+    out.printHeadline("# Wrote ${content.size} bytes to ${FILE_TO_UPLOAD} as backup")
 
     out.printHeadline("# Owner uploading file with ${content.size} bytes ... ")
     val link: URL = CDN.upload(FILE_TO_UPLOAD.toFile().inputStream(), OWNER)
@@ -33,13 +33,13 @@ fun main(args: Array<String>) {
     val readPermission = CDN.grantReadPermission(link, OWNER, CUSTOMER)
 
     //send email with link
-    out.printHeadline("# Owner sending mail to User ... ")
+    out.printHeadline("# Owner sending mail with link to customer ... ")
 
     out.printHeadline("# User downloading ${link} ... ")
     val contentEncrypted = CDN.download(link)
     out.printHeadline("# User downloaded ${contentEncrypted.size} encrypted bytes ... ")
 
-    out.printHeadline("# User fetch aes key (encrypted) ... ")
+    out.printHeadline("# User fetching aes key (encrypted) ... ")
     val aesKeyEncrypted = CDN.fetchKey(link, readPermission.getPublicKey())
     val aesKeyDecrypted = decrypt(ByteArrayInputStream(aesKeyEncrypted), readPermission.getPrivateKey())
     val aesKey = SecretKeySpec(aesKeyDecrypted, "AES")
