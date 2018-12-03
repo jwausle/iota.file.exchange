@@ -4,15 +4,15 @@ Secure document exchange with email+iota.
 
 ## Content
 
-- [Problem statement](#1)
-- [Market description](#2)
-- [A detailed overview of my proposed solution](#3)
+1. [Problem statement](#1)
+2. [Market description](#2)
+3. [A detailed overview of my proposed solution](#3)
  * [How IOTA is used in this use-case and what would be needed to achieve this solution](#3.1)
-- [Solutions and visions](#4)
+4. [Solutions and visions](#4)
  * [Long term solution (Vison)](#4.1)
  *  [Short term solution](#4.2)
-- [Fazit](#5)
-- [Links](#6)
+5. [Fazit](#5)
+6. [Links](#6)
 
 ## Problem statement <a name="1"></a>
 
