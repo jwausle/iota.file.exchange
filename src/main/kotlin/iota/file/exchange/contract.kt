@@ -8,7 +8,7 @@ import java.security.PublicKey
 import javax.crypto.spec.SecretKeySpec
 
 
-/** Smart iota.file.exchange.Contract to up- and download authorized documents */
+/** Smart Contract to up- and download authorized documents */
 object Contract {
     data class FileExchange(val token: TangleMock.Token, val link: URL, val permissions: MutableList<Permission>) {
         fun addPermission(permission: Permission) {
@@ -34,6 +34,9 @@ object Contract {
         }
     }
 
+    /**
+     * Permission to encrypt uploaded and decrypt DOWNLOADED content. Can be shared over the tangle.
+     */
     sealed class Permission {
         data class Read(val token: TangleMock.Token, internal val rsa: Rsa, val reader: User.Customer) : Permission()
         data class Owns(val token: TangleMock.Token, internal val rsa: Rsa, val encryptedKey: ByteArray, val owner: User.Owner) : Permission() {
